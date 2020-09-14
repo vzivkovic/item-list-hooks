@@ -1,22 +1,17 @@
-import React, { createContext, useState } from 'react';
-import uuid from 'uuid/v1';
+import React, {createContext, useReducer, useState} from 'react';
+import {ItemReducer} from "../reducers/ItemReducer";
 
 export const ItemContext = createContext();
 
 const ItemContextProvider = props => {
-  const [items, setItems] = useState([
+
+  const [items, dispatch] = useReducer(ItemReducer,[
     { title: 'name of the wind', author: 'patrick rothfuss', id: 1 },
     { title: 'the final empire', author: 'brandon sanderson', id: 2 }
   ]);
-  const addItem = (title, author) => {
-    setItems([...items, { title, author, id: uuid() }]);
-  };
-  const removeItem = id => {
-    setItems(items.filter(item => item.id !== id));
-  };
 
   return (
-    <ItemContext.Provider value={{ items, addItem, removeItem }}>
+    <ItemContext.Provider value={{ items, dispatch }}>
       {props.children}
     </ItemContext.Provider>
   );

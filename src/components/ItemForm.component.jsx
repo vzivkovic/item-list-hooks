@@ -2,12 +2,12 @@ import React, { useContext, useState } from 'react';
 import { ItemContext } from '../contexts/ItemContext';
 
 const ItemFormComponent = () => {
-  const { addItem } = useContext(ItemContext);
+  const { dispatch } = useContext(ItemContext);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
-    addItem(title, author);
+      dispatch({type:'ADD_ITEM',book: {title, author}});
     setTitle('');
     setAuthor('');
   };
